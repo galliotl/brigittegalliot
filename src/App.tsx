@@ -1,25 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import client from "./modules/GraphQL";
+import { ApolloProvider } from "@apollo/client";
+import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+
+// Components
+import Index from "./pages";
+import AppThemeProvider from "./theme";
+import Navbar from "./components/base/Navbar";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppThemeProvider>
+      <ApolloProvider client={client}>
+        <Router>
+          <Navbar />
+          <Switch>
+            <Route path="/">
+              <Index />
+            </Route>
+          </Switch>
+        </Router>
+      </ApolloProvider>
+    </AppThemeProvider>
   );
 }
 
